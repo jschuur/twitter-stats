@@ -29,5 +29,10 @@
     "react-is": "^17.0.1",
     "tailwindcss": "^2.0.2",
     "twin.macro": "^2.2.0"
+  },
+  "babelMacros": {
+    "twin": {
+      "preset": "styled-components"
+    }
   }
 }
