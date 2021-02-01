@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@fontsource/fraunces";
+
+body {
+  font-family: 'Fraunces', serif;
+  background-color: antiquewhite;
+}
+
+a {
+  color: orangered;
+}
