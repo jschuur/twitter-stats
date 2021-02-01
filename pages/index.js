@@ -4,8 +4,10 @@ import { connectToDatabase } from '../util/mongodb';
 import FollowerStats from '../components/FolllowerStats';
 
 export default function Home({ accounts }) {
+  // -webkit-fill-available centers on mobile regardless of browser UI bars if the
+  // height is 100% and not vh100. 'h-full sm:h-screen' uses 100% on mobile only.
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div style={{ minHeight: "-webkit-fill-available" }} className="flex h-full sm:h-screen justify-center items-center">
       <FollowerStats accounts={ accounts } />
     </div>
   );
