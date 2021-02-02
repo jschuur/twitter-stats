@@ -1,9 +1,28 @@
-function FollowerStatsAccount({ screen_name, followers }) {
-  //TODO: Show 30 day differential after follower count
+import { RECENT_DAYS } from '../util/config';
 
-  return(
-    <div className="mt-2" key={ screen_name }>
-      <a href={`https://twitter.com/${screen_name}` }>{screen_name}</a>: {Intl.NumberFormat().format(followers)}
+function FollowerStatsAccount(account) {
+  const {
+    screen_name,
+    recent_followers_count,
+    profile: { followers_count },
+  } = account;
+  const followers = Intl.NumberFormat('en-GB').format(followers_count);
+  const followerChange = followers_count - recent_followers_count;
+  var followerChangeText = '-',
+    followerChangeColor = '';
+
+  if (followerChange != 0) {
+    followerChangeColor = followerChange > 0 ? 'text-green-500' : 'text-red-500';
+    followerChangeText = Intl.NumberFormat('en-GB', {
+      style: 'decimal',
+      signDisplay: 'exceptZero',
+    }).format(followerChange);
+  }
+
+  return (
+    <div className='mt-2' key={screen_name}>
+      <a href={`https://twitter.com/${screen_name}`}>{screen_name}</a>: {followers} (
+      <span className={followerChangeColor}>{followerChangeText}</span>)
     </div>
   );
 }
@@ -13,6 +32,7 @@ export default function FollowerStats({ accounts }) {
     <div>
     <h1 className="text-4xl">Twitter Followers</h1>
       {accounts.map(FollowerStatsAccount)}
+      <p className="text-xs pt-3 float-right"><i>changes in the past {RECENT_DAYS} days</i></p>
     </div>
   )
 }
