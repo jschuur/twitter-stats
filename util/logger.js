@@ -31,6 +31,6 @@ if (process.env.AWS_CLOUDWATCH_LOG_GROUP) {
   );
 }
 
-if (env === 'development') logger.add(new winston.transports.Console());
+logger.add(new winston.transports.Console());
 
 export default logger;
