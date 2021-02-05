@@ -1,10 +1,10 @@
 import { performance } from 'perf_hooks';
 import { Parser } from 'json2csv';
 
-import { connectToDatabase } from '../../../util/mongodb';
-import logger from '../../../util/logger';
-import apiWrapper from '../../../util/api_wrapper';
-import { readSnapshots } from '../../../lib/db';
+import { connectToDatabase } from 'util/mongodb';
+import logger from 'util/logger';
+import apiWrapper from 'util/api_wrapper';
+import { readSnapshots } from 'lib/db';
 
 const numFormat = new Intl.NumberFormat('en-GB').format;
 

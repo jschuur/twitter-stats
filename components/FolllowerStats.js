@@ -1,4 +1,4 @@
-import { RECENT_DAYS } from '../util/config';
+import { RECENT_DAYS } from 'util/config';
 
 function buildAccountElements(account) {
   var followerChangeText = '-',

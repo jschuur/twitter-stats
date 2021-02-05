@@ -1,10 +1,10 @@
 import { subDays, format } from 'date-fns';
-import { readAccounts } from '../lib/db';
-import { connectToDatabase } from '../util/mongodb';
+import { readAccounts } from 'lib/db';
+import { connectToDatabase } from 'util/mongodb';
 
-import FollowerStats from '../components/FolllowerStats';
+import FollowerStats from 'components/FolllowerStats';
 
-import { RECENT_DAYS } from '../util/config';
+import { RECENT_DAYS } from 'util/config';
 
 export default function Home({ accounts }) {
   // -webkit-fill-available centers on mobile regardless of browser UI bars if the

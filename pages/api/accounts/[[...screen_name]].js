@@ -1,9 +1,9 @@
 import { performance } from 'perf_hooks';
 
-import { connectToDatabase } from '../../../util/mongodb';
-import logger from '../../../util/logger';
-import apiWrapper from '../../../util/api_wrapper';
-import { readAccounts } from '../../../lib/db';
+import { connectToDatabase } from 'util/mongodb';
+import logger from 'util/logger';
+import apiWrapper from 'util/api_wrapper';
+import { readAccounts } from 'lib/db';
 
 const numFormat = new Intl.NumberFormat('en-GB').format;
 
