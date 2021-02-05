@@ -1,10 +1,15 @@
-import logger from 'util/logger';
-import apiWrapper from 'util/api_wrapper';
+import { performance } from 'perf_hooks';
 
-function handler(req, res) {
-  res.json({
+import logger from 'util/logger';
+import apiWrapper from 'util/api_wrapper.js';
+import { httpResponse } from 'util/misc';
+
+export default function handler(req, res) {
+  const startTime = performance.now();
+
+  httpResponse({
+    res,
     message: 'Pong',
+    startTime,
   });
 }
-
-export default apiWrapper(handler);
