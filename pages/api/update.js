@@ -1,7 +1,7 @@
-import chalk from 'chalk';
 import { performance } from 'perf_hooks';
 
 import { connectToDatabase } from '../../util/mongodb';
+import logger from '../util/logger';
 import { readAccounts } from '../../lib/db';
 import { updateSnapshots } from '../../lib/update_snapshots';
 
@@ -16,7 +16,7 @@ const numFormat = new Intl.NumberFormat('en-GB').format;
   try {
     var twitterAccounts = await readAccounts();
   } catch ({ message }) {
-    console.log(`${chalk.red('Error:')} ${message}`);
+    logger.error(message);
 
     return res.status(400).json({ error: message })
   }
@@ -27,8 +27,8 @@ const numFormat = new Intl.NumberFormat('en-GB').format;
       const followers = await updateSnapshots(account.screen_name);
 
       results[account.screen_name] = followers;
-    } catch (err) {
-      console.error(`${chalk.red('Error:')} ${err.message}`);
+    } catch ({ message }) {
+      logger.error(message);
 
       continue;
     }

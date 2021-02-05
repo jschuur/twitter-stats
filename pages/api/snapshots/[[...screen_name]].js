@@ -1,8 +1,9 @@
-import chalk from 'chalk';
 import { performance } from 'perf_hooks';
 import { Parser } from 'json2csv';
 
 import { connectToDatabase } from '../../../util/mongodb';
+import logger from '../../../util/logger';
+import apiWrapper from '../../../util/api_wrapper';
 import { readSnapshots } from '../../../lib/db';
 
 const numFormat = new Intl.NumberFormat('en-GB').format;
@@ -17,8 +18,19 @@ const csvFields = [
   'favourites_count',
 ];
 
+function sendCSV({ snapshots, screen_name, res }) {
+  const csvParser = new Parser({ fields: csvFields });
+  const csvResults = csvParser.parse(snapshots);
+  const filename = `snapshots${screen_name ? `_${screen_name}` : ''}.csv`;
+
+  res.setHeader('Content-Type', 'text/csv');
+  res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+
+  return res.send(csvResults);
+}
+
 // API handler for getting stats snapshots
-export default async function handler(req, res) {
+async function handler(req, res) {
   const startTime = performance.now();
   const { db } = await connectToDatabase();
 
@@ -26,30 +38,28 @@ export default async function handler(req, res) {
   const csvFormat = req.query?.format === 'csv';
 
   try {
-    var results = await readSnapshots(screen_name);
+    var snapshots = await readSnapshots(screen_name);
   } catch ({ message }) {
-    console.log(`${chalk.red('Error:')} ${message}`);
+    logger.error(error);
 
     return res.status(500, { error: message });
   }
 
-  if (results.length) {
-    if (csvFormat) {
-      const csvParser = new Parser({ fields: csvFields });
-      const csvResults = csvParser.parse(results);
-      const filename = `snapshots${screen_name ? `_${screen_name}` : ''}.csv`;
+  const endTime = performance.now();
+  const _execution_time = `${numFormat(endTime - startTime)} ms`;
 
-      res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-      return res.send(csvResults);
+  if (snapshots.length) {
+    if (csvFormat) {
+      return sendCSV({ snapshots, screen_name, res });
     } else {
-      const endTime = performance.now();
 
       return res.json({
-        _execution_time: `${numFormat(endTime - startTime)} ms`,
+        _execution_time,
         message: 'Snapshots retrieved successfully',
-        results
+        results: snapshots,
       });
     }
-  } else return res.status(404).json({ message: `Unable to find snapshots for ${screen_name}` });
+  } else return res.status(404).json({ _execution_time, message: `Unable to find snapshots for ${screen_name}` });
 }
+
+export default apiWrapper(handler);

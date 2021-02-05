@@ -30,6 +30,5 @@ export async function getServerSideProps(context) {
     account.recent_followers_count = snapshot.followers_count;
   }
 
-  // console.log(recentFollowers);
   return { props: { accounts } };
 }
