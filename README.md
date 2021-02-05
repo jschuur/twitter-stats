@@ -1,77 +1,29 @@
-## Example app using MongoDB
+# Twitter Stats Collection and Analysis
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+Self-hosted performance tracking for your Twitter followers and tweets.
 
-If you want to learn more about MongoDB, visit the following pages:
+Twittercounter went away and I wanted a fun side project for the different [Twitter](https://twitter.com/martiansoil) [accounts](https://twitter.com/lunarsoil) [that](https://twitter.com/LearnChineseCLB) I [run](https://twitter.com/joostschuur).
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
+Stack: Next.js/React and MongoDB, based on the [nextjs-with-mongodb](https://github.com/kukicado/nextjs-with-mongodb) template.
 
-## Deploy your own
+## Setup
 
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+1. Install Node dependencies: `npm install`.
+2. Set up a MongoDB database with collections for `accounts` and `snapshots`. The free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) sandbox works fine for this.
+3. [Create a Twitter application](https://developer.twitter.com/en/portal/dashboard) and generate an API key and secret.
+4. Create a `.env.local` file based on `.env.local.sample` and configure as needed, including the Twitter and MondoDB credentials.
+5. For now, manually add the accounts you want to track into the `accounts` DB collection with a `screen_name` field.
+6. Run `npm run dev` and visit the local [update API endpoint](http://localhost:3000/api/update) to trigger a manual update.
+7. View your account stats on the [home page](http://localhost:3000).
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI,MONGODB_DB&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
+## Deployment
 
-## How to use
+1. Recommended host: [Vercel](https://vercel.com/docs). Run `npm deploy` if you're using them. Set up [environment variables](https://vercel.com/docs/environment-variables) there for the production environment.
+2. Set up a cron job to periodically call your update API endpoint. [EasyCron](https://www.easycron.com/) is a good, free place for this. Recommended frequency: every 6 hours.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## More Info
+* [Todo list](https://github.com/jschuur/twittter-stats/projects/1)
+* [Twitter API](https://developer.twitter.com/en/docs/twitter-api)
+* [How to Integrate MongoDB Into Your Next.js App](https://developer.mongodb.com/how-to/nextjs-with-mongodb/)
 
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
-# or
-yarn create next-app --example with-mongodb with-mongodb-app
-```
-
-## Configuration
-
-### Set up a MongoDB database
-
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
-
-### Set up environment variables
-
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
-
-```bash
-cp .env.local.example .env.local
-```
-
-Set each variable on `.env.local`:
-
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
-- `MONGODB_DB` - The name of the MongoDB database you want to use.
-
-### Run Next.js in development mode
-
-```bash
-npm install
-npm run dev
-
-# or
-
-yarn install
-yarn dev
-```
-
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
-
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` and `MONGODB_DB` environment variables.
-
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
-
-## Deploy on Vercel
-
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-#### Deploy Your Local Project
-
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI,MONGODB_DB&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
+\- [Joost Schuur](https://twitter.com/joostschuur/)
