@@ -29,13 +29,7 @@ async function handler(req, res) {
   const screen_name = req.query?.screen_name?.[0];
   const fullDetails = req.query?.details || screen_name;
 
-  try {
-    var accounts = await readAccounts({ screen_name });
-  } catch ({ message }) {
-    logger.error(message);
-
-    return httpResponse({ res, status: 500, error: message, startTime });
-  }
+  const accounts = await readAccounts({ screen_name });
 
   httpResponse({ res, startTime, ...buildResults({ accounts, screen_name, fullDetails }) });
 }

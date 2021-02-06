@@ -36,13 +36,7 @@ async function handler(req, res) {
   const screen_name = req.query?.screen_name?.[0];
   const csvFormat = req.query?.format === 'csv';
 
-  try {
-    var snapshots = await readSnapshots(screen_name);
-  } catch ({ message }) {
-    logger.error(error);
-
-    return httpResponse({ res, status: 500, error: message });
-  }
+  const snapshots = await readSnapshots(screen_name);
 
   if (snapshots.length) {
     if (csvFormat) {

@@ -43,6 +43,10 @@ export async function connectToDatabase() {
       }
     })
   }
-  cached.conn = await cached.promise
+  try {
+    cached.conn = await cached.promise;
+  } catch ({ message }) {
+    throw new Error(`Couldn't connect to the database (${message})`);
+  }
   return cached.conn
 }

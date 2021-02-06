@@ -1,10 +1,10 @@
 import { performance } from 'perf_hooks';
 
 import logger from 'util/logger';
-import apiWrapper from 'util/api_wrapper.js';
+import apiWrapper from 'util/api_wrapper';
 import { httpResponse } from 'util/misc';
 
-export default function handler(req, res) {
+async function handler(req, res) {
   const startTime = performance.now();
 
   httpResponse({
@@ -13,3 +13,5 @@ export default function handler(req, res) {
     startTime,
   });
 }
+
+export default apiWrapper(handler);
