@@ -8,8 +8,19 @@ async function updateAccounts() {
   const accounts = await readAccounts();
 
   for (const account of accounts) {
-    logger.debug(`Processing ${account.screen_name}`);;
-    results[account.screen_name] = await updateAccount(account);
+    if (!account.paused) {
+      logger.debug(`Processing ${account.screen_name}`);
+
+      // Continue for account specific errors, in case they are Oauth related
+      try {
+        results[account.screen_name] = await updateAccount(account);
+      } catch ({ message }) {
+        logger.error(message);
+        results[account.screen_name] = message;
+
+        continue;
+      }
+    }
   }
 
   return results;
