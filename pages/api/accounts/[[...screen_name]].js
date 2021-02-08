@@ -3,29 +3,29 @@ import { readAccounts } from 'lib/db';
 
 const numFormat = new Intl.NumberFormat('en-GB').format;
 
-function buildResults({ accounts, screen_name, fullDetails }) {
+function buildResults({ accounts, username, fullDetails }) {
   if (accounts.length) {
     const results = fullDetails
-      ? screen_name
+      ? username
         ? accounts[0]
         : accounts
-      : accounts.map((account) => account.screen_name);
-    const message = screen_name
+      : accounts.map((account) => account.username);
+    const message = username
       ? 'Twitter account details retrieved successfully'
       : 'Twitter account(s) retrieved successfully';
 
     return { status: 200, message, results };
-  } else return { status: 404, error: `Unable to find account named ${screen_name}` };
+  } else return { status: 404, error: `Unable to find account named ${username}` };
 }
 
 // API handler for requesting account list/details
 async function handler(req, res) {
-  const screen_name = req.query?.screen_name?.[0];
-  const fullDetails = req.query?.details || screen_name;
+  const username = req.query?.username?.[0];
+  const fullDetails = req.query?.details || username;
 
-  const accounts = await readAccounts({ screen_name, clean: true });
+  const accounts = await readAccounts({ username, clean: true });
 
-  req.response = buildResults({ accounts, screen_name, fullDetails });
+  req.response = buildResults({ accounts, username, fullDetails });
 }
 
 export default apiWrapper(handler);

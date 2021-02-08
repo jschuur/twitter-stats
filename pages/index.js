@@ -18,7 +18,7 @@ export default function Home({ accounts }) {
 
 export async function getServerSideProps(context) {
   const { db } = await connectToDatabase();
-  const accounts = await readAccounts();
+  const accounts = await readAccounts({ clean: true });
 
   // Build list of recent follower counts
   const recentDate = format(subDays(new Date(), RECENT_DAYS), 'yyyy-MM-dd');
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   for (const account of accounts) {
     const snapshot = await db
       .collection('snapshots')
-      .findOne({ screen_name: account.screen_name, date: { $gte: recentDate } });
+      .findOne({ username: account.username, date: { $gte: recentDate } });
     account.recent_followers_count = snapshot.followers_count;
   }
 

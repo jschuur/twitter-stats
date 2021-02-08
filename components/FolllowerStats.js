@@ -6,7 +6,9 @@ function buildAccountElements(account) {
 
   const {
     recent_followers_count,
-    profile: { followers_count },
+    profile: {
+      public_metrics: { followers_count },
+    },
   } = account;
   const followerChange = followers_count - recent_followers_count;
 
@@ -26,12 +28,12 @@ function buildAccountElements(account) {
 }
 
 function FollowerStatsAccount(account) {
-  const { screen_name } = account;
+  const { username } = account;
   const { followerCount, followerChangeColor, followerChangeText } = buildAccountElements(account);
 
   return (
-    <div className='mt-2' key={screen_name}>
-      <a href={`https://twitter.com/${screen_name}`}>{screen_name}</a>: {followerCount} (
+    <div className='mt-2' key={username}>
+      <a href={`https://twitter.com/${username}`}>{username}</a>: {followerCount} (
       <span className={followerChangeColor}>{followerChangeText}</span>)
     </div>
   );

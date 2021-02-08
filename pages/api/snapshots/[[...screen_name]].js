@@ -6,19 +6,18 @@ import { readSnapshots } from 'lib/db';
 const numFormat = new Intl.NumberFormat('en-GB').format;
 
 const csvFields = [
-  'screen_name',
+  'username',
   'date',
-  'friends_count',
+  'following_count',
   'listed_count',
-  'statuses_count',
+  'tweet_count',
   'followers_count',
-  'favourites_count',
 ];
 
-function sendCSV({ snapshots, screen_name, res }) {
+function sendCSV({ snapshots, username, res }) {
   const csvParser = new Parser({ fields: csvFields });
   const csvResults = csvParser.parse(snapshots);
-  const filename = `snapshots${screen_name ? `_${screen_name}` : ''}.csv`;
+  const filename = `snapshots${username ? `_${username}` : ''}.csv`;
 
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
@@ -28,21 +27,21 @@ function sendCSV({ snapshots, screen_name, res }) {
 
 // API handler for getting stats snapshots
 async function handler(req, res) {
-  const screen_name = req.query?.screen_name?.[0];
+  const username = req.query?.username?.[0];
   const csvFormat = req.query?.format === 'csv';
 
-  const snapshots = await readSnapshots({ screen_name, clean: true });
+  const snapshots = await readSnapshots({ username, clean: true });
 
   if (snapshots.length) {
     if (csvFormat) {
-      return sendCSV({ snapshots, screen_name, res });
+      return sendCSV({ snapshots, username, res });
     } else {
       req.response = {
         message: 'Snapshots retrieved successfully',
         results: snapshots,
       };
     }
-  } else req.response = { status: 404, error: `Unable to find snapshots for ${screen_name}` };
+  } else req.response = { status: 404, error: `Unable to find snapshots for ${username}` };
 }
 
 export default apiWrapper(handler);

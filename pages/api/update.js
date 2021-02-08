@@ -3,20 +3,20 @@ import apiWrapper from 'util/api_wrapper';
 import logger from 'util/logger';
 import { readAccounts } from 'lib/db';
 
-async function updateAccounts() {
+async function updateAccounts({ skipTweets }) {
   let results = {};
   const accounts = await readAccounts();
 
   for (const account of accounts) {
     if (!account.paused) {
-      logger.debug(`Processing ${account.screen_name}`);
+      logger.debug(`Processing ${account.username}`);
 
       // Continue for account specific errors, in case they are Oauth related
       try {
-        results[account.screen_name] = await updateAccount(account);
+        results[account.username] = await updateAccount({ account, skipTweets });
       } catch ({ message }) {
         logger.error(message);
-        results[account.screen_name] = message;
+        results[account.username] = message;
 
         continue;
       }
@@ -28,7 +28,9 @@ async function updateAccounts() {
 
 // API handler for triggering snapshot updates
 async function handler(req, res) {
-  const results = await updateAccounts();
+  const { skipTweets } = req.query;
+
+  const results = await updateAccounts({ skipTweets });
 
   req.response = {
     message: 'Update completed',
