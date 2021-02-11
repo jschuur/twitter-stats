@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "deploy": "vercel",
-    "deploy:prod": "vercel --prod"
+    "deploy:prod": "vercel --prod",
+    "update:dev": "twitterstats update"
   },
   "bin": {
     "twitterstats": "cli/index.js"
@@ -22,11 +23,12 @@
     "json2csv": "^5.0.5",
     "mongodb": "^3.5.9",
     "next": "latest",
+    "node-fetch": "^2.6.1",
+    "oauth-1.0a": "^2.2.6",
     "pluralize": "^8.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.2.1",
-    "twitter-v2": "^1.0.2",
     "winston": "^3.3.3",
     "winston-aws-cloudwatch": "^3.0.0"
   },
