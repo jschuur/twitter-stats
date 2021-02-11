@@ -25,7 +25,7 @@ async function handler(req, res) {
 
   const accounts = await readAccounts({ username, clean: true });
 
-  req.response = buildResults({ accounts, username, fullDetails });
+  res.response = buildResults({ accounts, username, fullDetails });
 }
 
 export default apiWrapper(handler);

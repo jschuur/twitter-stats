@@ -15,13 +15,13 @@ const apiWrapper = (handler) => {
       await handler(req, res);
 
       // If response data came in via req, use that
-      if (req.response) {
-        var { status = 200 } = req.response;
+      if (res.response) {
+        var { status = 200 } = res.response;
 
         res.status(status).json({
           _execution_time: executionTime(startTime, performance.now()),
           status,
-          ...req.response,
+          ...res.response,
         });
       }
     } catch ({ message }) {

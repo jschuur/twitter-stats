@@ -36,12 +36,12 @@ async function handler(req, res) {
     if (csvFormat) {
       return sendCSV({ snapshots, username, res });
     } else {
-      req.response = {
+      res.response = {
         message: 'Snapshots retrieved successfully',
         results: snapshots,
       };
     }
-  } else req.response = { status: 404, error: `Unable to find snapshots for ${username}` };
+  } else res.response = { status: 404, error: `Unable to find snapshots for ${username}` };
 }
 
 export default apiWrapper(handler);

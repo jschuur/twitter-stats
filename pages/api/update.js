@@ -7,7 +7,7 @@ async function handler(req, res) {
 
   const results = await updateAccounts({ skipTweets });
 
-  req.response = {
+  res.response = {
     message: 'Update completed',
     results,
   };
