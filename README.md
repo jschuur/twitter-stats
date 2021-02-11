@@ -4,7 +4,7 @@ Self-hosted performance tracking for your Twitter followers and tweets.
 
 Twittercounter went away and I wanted a fun side project for the different [Twitter](https://twitter.com/martiansoil) [accounts](https://twitter.com/lunarsoil) [that](https://twitter.com/LearnChineseCLB) I [run](https://twitter.com/joostschuur).
 
-Stack: Next.js/React and MongoDB, based on the [nextjs-with-mongodb](https://github.com/kukicado/nextjs-with-mongodb) template.
+Stack: Next.js/React and MongoDB, based on the [nextjs-with-mongodb](https://github.com/kukicado/nextjs-with-mongodb) template. Thanks to generous free tiers, you can run all this for free.
 
 ## Setup
 
@@ -19,7 +19,7 @@ Stack: Next.js/React and MongoDB, based on the [nextjs-with-mongodb](https://git
 ## Deployment
 
 1. Recommended host: [Vercel](https://vercel.com/docs). Run `npm deploy` if you're using them. Set up [environment variables](https://vercel.com/docs/environment-variables) there for the production environment.
-2. Set up a cron job to periodically call your update API endpoint. [EasyCron](https://www.easycron.com/) is a good, free place for this. Recommended frequency: every 6 hours.
+2. A GitHub Action in `.github/workflows/update.yml` is set to update Twitter stats and redeploy the site every 6 hours. Set up [secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) in your GitHub repo for the fields in your `.env.local` file (but use your live database credentials) for this to work. Alternatively you could use something like [EasyCron](https://easycron.com/) to hit the `/api/update/` endpoint, but this could eventually become problematic if you are on the free Vercel tier which has a 10 second [time limit](https://vercel.com/docs/platform/limits) for API calls.
 
 ## More Info
 * [Todo list](https://github.com/jschuur/twittter-stats/projects/1)
