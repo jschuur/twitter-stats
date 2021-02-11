@@ -4,7 +4,7 @@ import CloudWatchTransport from 'winston-aws-cloudwatch';
 const env = process.env.NODE_ENV || 'development';
 
 const logger = winston.createLogger({
-  level: env === 'development' ? 'debug' : 'info',
+  level: 'debug',
   format: format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.align(),
