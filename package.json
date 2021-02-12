@@ -17,6 +17,8 @@
     "@babel/preset-env": "^7.12.13",
     "@babel/register": "^7.12.13",
     "@fontsource/fraunces": "^4.1.2",
+    "chalk": "^4.1.0",
+    "cli-table": "^0.3.4",
     "crypto-js": "^4.0.0",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",

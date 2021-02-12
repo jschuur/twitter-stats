@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { RECENT_DAYS } from 'util/config';
 
 function buildAccountElements(account) {
@@ -39,13 +40,17 @@ function FollowerStatsAccount(account) {
   );
 }
 
-export default function FollowerStats({ accounts }) {
+// TODO: use time ago format for lastUpdate
+export default function FollowerStats({ accounts, lastUpdate }) {
   return (
     <div>
       <h1 className='text-4xl'>Twitter Followers</h1>
       {accounts.map(FollowerStatsAccount)}
-      <p className='text-xs pt-3 float-right'>
-        <i>changes in the past {RECENT_DAYS} days</i>
+      <p className='text-xs pt-3 float-right text-right'>
+        <i>
+          Changes in the past {RECENT_DAYS} days
+          <br /> Last update: {format(new Date(lastUpdate), 'P ppp')}
+        </i>
       </p>
     </div>
   );

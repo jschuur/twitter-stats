@@ -6,12 +6,12 @@ import FollowerStats from 'components/FolllowerStats';
 
 import { RECENT_DAYS } from 'util/config';
 
-export default function Home({ accounts }) {
+export default function Home({ accounts, lastUpdate }) {
   // -webkit-fill-available centers on mobile regardless of browser UI bars if the
   // height is 100% and not vh100. 'h-full sm:h-screen' uses 100% on mobile only.
   return (
     <div style={{ minHeight: "-webkit-fill-available" }} className="flex h-full sm:h-screen justify-center items-center">
-      <FollowerStats accounts={ accounts } />
+      <FollowerStats accounts={accounts} lastUpdate={lastUpdate} />
     </div>
   );
 }
@@ -30,5 +30,7 @@ export async function getStaticProps(context) {
     account.recent_followers_count = snapshot.followers_count;
   }
 
-  return { props: { accounts } };
+  return {
+    props: { accounts, lastUpdate: (new Date()).toJSON() }
+  }
 }
