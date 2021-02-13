@@ -7,7 +7,8 @@
     "start": "next start",
     "deploy": "vercel",
     "deploy:prod": "vercel --prod",
-    "update:dev": "twitterstats update"
+    "update:dev": "twitterstats update",
+    "add:account": "twitterstats add"
   },
   "bin": {
     "twitterstats": "cli/index.js"
@@ -28,6 +29,7 @@
     "node-fetch": "^2.6.1",
     "oauth-1.0a": "^2.2.6",
     "pluralize": "^8.0.0",
+    "query-string": "^6.14.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.2.1",
@@ -42,6 +44,8 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-styled-components": "^1.12.0",
     "commander": "^7.0.0",
+    "express": "^4.17.1",
+    "open": "^7.4.0",
     "react-is": "^17.0.1",
     "tailwindcss": "^2.0.2",
     "twin.macro": "^2.2.0"

@@ -2,6 +2,7 @@ import { program } from 'commander';
 
 import showStats from './stats_command';
 import updateFromCLI from './update_command';
+import addTwitterAccount from './add_command';
 
 import { RECENT_DAYS } from 'util/config';
 
@@ -18,5 +19,7 @@ program
   .description('show latest stats for accounts')
   .option('-d, --days <days>', 'days for recent comparison', RECENT_DAYS)
   .action(showStats);
+
+program.command('add').description('add a new Twitter account').action(addTwitterAccount);
 
 program.parse(process.argv);
