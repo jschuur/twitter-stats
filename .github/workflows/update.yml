@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: prod
       - run: npm install
       - run: node cli/index.js update
       - uses: amondnet/vercel-action@v20
