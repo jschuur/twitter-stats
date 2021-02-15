@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { format } from 'date-fns';
 import { RECENT_DAYS } from 'util/config';
 
@@ -48,7 +49,7 @@ export default function FollowerStats({ accounts, lastUpdate }) {
       {accounts.map(FollowerStatsAccount)}
       <p className='text-xs pt-3 float-right text-right'>
         <i>
-          Changes in the past {RECENT_DAYS} days
+          Changes in the past {RECENT_DAYS} days (<Link href='/charts'>charts</Link>)
           <br /> Last update: {format(new Date(lastUpdate), 'P ppp')}
         </i>
       </p>

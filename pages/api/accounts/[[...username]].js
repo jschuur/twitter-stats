@@ -23,7 +23,7 @@ async function handler(req, res) {
   const username = req.query?.username?.[0];
   const fullDetails = req.query?.details || username;
 
-  const accounts = await readAccounts({ username, clean: true });
+  const accounts = await readAccounts({ username });
 
   res.response = buildResults({ accounts, username, fullDetails });
 }

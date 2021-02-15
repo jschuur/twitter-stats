@@ -18,7 +18,7 @@ export default function Home({ accounts, lastUpdate }) {
 
 export async function getStaticProps(context) {
   const { db } = await connectToDatabase();
-  const accounts = await readAccounts({ clean: true });
+  const accounts = await readAccounts();
 
   // Build list of recent follower counts
   const recentDate = format(subDays(new Date(), RECENT_DAYS), 'yyyy-MM-dd');
