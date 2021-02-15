@@ -31,6 +31,6 @@ export async function getStaticProps(context) {
   }
 
   return {
-    props: { accounts, lastUpdate: (new Date()).toJSON() }
-  }
+    props: { accounts, lastUpdate: new Date().toISOString() },
+  };
 }

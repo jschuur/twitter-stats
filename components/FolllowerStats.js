@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { format } from 'date-fns';
+import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { RECENT_DAYS } from 'util/config';
+import { BackgroundColor } from 'chalk';
 
 function buildAccountElements(account) {
   var followerChangeText = '-',
@@ -41,7 +42,6 @@ function FollowerStatsAccount(account) {
   );
 }
 
-// TODO: use time ago format for lastUpdate
 export default function FollowerStats({ accounts, lastUpdate }) {
   return (
     <div>
@@ -50,7 +50,10 @@ export default function FollowerStats({ accounts, lastUpdate }) {
       <p className='text-xs pt-3 float-right text-right'>
         <i>
           Changes in the past {RECENT_DAYS} days (<Link href='/charts'>charts</Link>)
-          <br /> Last update: {format(new Date(lastUpdate), 'P ppp')}
+          <br /> Last update:{' '}
+          <span title={new Date(lastUpdate).toLocaleString()}>
+            {formatDistanceToNow(new Date(lastUpdate))} ago
+          </span>
         </i>
       </p>
     </div>
